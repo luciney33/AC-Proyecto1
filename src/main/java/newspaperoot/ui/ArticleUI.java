@@ -1,9 +1,13 @@
 package newspaperoot.ui;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.service.ArticleService;
 
 import java.util.List;
+@Data
+
 
 public class ArticleUI {
     private final ArticleService articleService;

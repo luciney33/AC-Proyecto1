@@ -32,68 +32,79 @@ public class mainMenu {
                 } else System.out.println("Valid username");
             }
             int opc = 0;
+            //sacalo que tu puedes
             do {
+                System.out.println("1. Get all articles");
+                System.out.println("2. Add article");
+                System.out.println("3. Update article");
+                System.out.println("4. Delete article");
+                System.out.println("5. Get all newspapers");
+                System.out.println("6. Get all readers");
+                System.out.println("7. Get readers of an article");
+                System.out.println("8. Get reader by id");
+                System.out.println("9. Add rating to an article");
+                System.out.println("10. Modify rating of an article");
+                System.out.println("11. Delete rating of an article");
+                System.out.println("12. Get all types");
+                System.out.println("13. Exit");
+                System.out.print("Select an option: ");
+
+                String numero = sc.nextLine();
+                try {
+                    opc = Integer.parseInt(numero);
+                } catch (NumberFormatException e) {
+                    opc = -1;
+                }
+
                 switch (opc) {
-                    case 1: {
+                    case 1:
                         System.out.println("1. Get all articles");
-                    }
-                    break;
-                    case 2: {
+                        break;
+                    case 2:
                         System.out.println("2. Add article");
-                    }
-                    break;
-                    case 3: {
+                        break;
+                    case 3:
                         System.out.println("3. Update article");
-                    }
-                    break;
-                    case 4: {
+                        break;
+                    case 4:
                         System.out.println("4. Delete article");
-                    }
-                    break;
-                    case 5: {
-                        System.out.println("5. Get all Newspapers");
-                    }
-                    break;
-                    case 6: {
+                        break;
+                    case 5:
+                        System.out.println("5. Get all newspapers");
+                        break;
+                    case 6:
                         System.out.println("6. Get all readers");
-                    }
-                    break;
-                    case 7: {
-                        System.out.println("7. Get Readers of an Article");
-                    }
-                    break;
-                    case 8: {
+                        break;
+                    case 7:
+                        System.out.println("7. Get readers of an article");
+                        break;
+                    case 8:
                         System.out.println("8. Get reader by id");
-                    }
-                    break;
-                    case 9: {
-                        System.out.println("9. Add rating to an Article");
-                    }
-                    break;
-                    case 10: {
-                        System.out.println("10. Modify rating of an Article");
-                    }
-                    break;
-                    case 11: {
-                        System.out.println("11. Delete rating of an Article");
-                    }
-                    break;
-                    case 12: {
+                        break;
+                    case 9:
+                        System.out.println("9. Add rating to an article");
+                        break;
+                    case 10:
+                        System.out.println("10. Modify rating of an article");
+                        break;
+                    case 11:
+                        System.out.println("11. Delete rating of an article");
+                        break;
+                    case 12:
                         System.out.println("12. Get all types");
-                    }
-                    break;
-                    case 13: {
-                        System.out.println("13. Exit");
-                    }
-                    break;
+                        break;
+                    case 13:
+                        System.out.println("Exiting... Goodbye!");
+                        break;
                     default:
                         System.out.println("Invalid option. Please try again.");
                         break;
                 }
+
             } while (opc != 13);
 
         } catch (Exception e) {
-            System.out.println("Error al inicializar el contenedor: " + e.getMessage());
+            System.out.println("Error : " + e.getMessage());
         }
     }
 }
