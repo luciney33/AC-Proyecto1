@@ -1,10 +1,19 @@
 package newspaperoot.ui;
 
+import newspaperoot.domain.model.CredentialDTO;
+
 import java.util.Scanner;
 
 public class mainMenu {
     public static void main(String[] args) {
+        //siempre hay que inicializar la clase que se quiera
+        SeContainerInitializer seContainerInitializer = SeContaiener.newInstance();
+        try (SeContainer container = initializer.initialize()){
+            CredentialUI credentialUI = container.select(CredentialUI.class).get();
+
+        }
         Scanner sc = new Scanner(System.in);
+        CredentialUI credentialUI = new CredentialUI();
             System.out.println("Username");
             String username = sc.nextLine();
             System.out.println("Password");
@@ -13,6 +22,7 @@ public class mainMenu {
                 System.out.println("Login successful. Welcome " + username + "!");
                 System.out.println("Elije una opcion:");
                 int opc = sc.nextInt();
+
                 do {
                 switch (opc) {
                     case 1: {

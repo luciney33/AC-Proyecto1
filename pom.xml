@@ -15,6 +15,15 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>jakarta.plataform</groupId>
+            <artifactId>jakar</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>4.0.3Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.40</version>
