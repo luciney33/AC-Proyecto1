@@ -32,6 +32,7 @@ public class mainMenu {
                 } else System.out.println("Valid username");
             }
             int opc = 0;
+            //sacalo que tu puedes
             do {
                 switch (opc) {
                     case 1: {
