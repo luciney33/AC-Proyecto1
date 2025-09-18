@@ -58,43 +58,38 @@ public class mainMenu {
 
                 switch (opc) {
                     case 1:
-                        System.out.println("1. Get all articles");
+                        System.out.println("Get all articles options");
+                        articleUI.getAllArticles();
                         break;
                     case 2:
+                        int answer = articleUI.addArticle();//da el id del articulo insertado
                         System.out.println("2. Add article");
                         break;
                     case 3:
-                        System.out.println("3. Update article");
+                        //articleUI.updateArticle();
                         break;
                     case 4:
-                        System.out.println("4. Delete article");
+                        System.out.println("Press enter to delete...");
+                        String answer2 = sc.nextLine();
                         break;
                     case 5:
-                        System.out.println("5. Get all newspapers");
                         break;
                     case 6:
-                        System.out.println("6. Get all readers");
                         break;
                     case 7:
-                        System.out.println("7. Get readers of an article");
                         break;
                     case 8:
-                        System.out.println("8. Get reader by id");
                         break;
                     case 9:
-                        System.out.println("9. Add rating to an article");
                         break;
                     case 10:
-                        System.out.println("10. Modify rating of an article");
                         break;
                     case 11:
-                        System.out.println("11. Delete rating of an article");
                         break;
                     case 12:
-                        System.out.println("12. Get all types");
                         break;
                     case 13:
-                        System.out.println("Exiting... Goodbye!");
+                        System.out.println("Exiting...");
                         break;
                     default:
                         System.out.println("Invalid option. Please try again.");
@@ -104,7 +99,8 @@ public class mainMenu {
             } while (opc != 13);
 
         } catch (Exception e) {
-            System.out.println("Error : " + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
+            System.exit(1);
         }
     }
 }

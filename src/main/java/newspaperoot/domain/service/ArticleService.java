@@ -1,23 +1,20 @@
 package newspaperoot.domain.service;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import newspaperoot.dao.ArticleRepository;
+import newspaperoot.dao.Basic.BasicArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
-import newspaperoot.dao.model.TypeEntity;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.TypeDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 public class ArticleService {
 
-    private final ArticleRepository articleRepository;
+    private final BasicArticleRepository articleRepository;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(BasicArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
 

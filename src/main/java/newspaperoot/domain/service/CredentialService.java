@@ -1,15 +1,15 @@
 package newspaperoot.domain.service;
 
 import jakarta.inject.Inject;
-import newspaperoot.dao.CredentialRepository;
+import newspaperoot.dao.Basic.BasicCredentialRepository;
 import newspaperoot.dao.model.CredentialEntity;
 import newspaperoot.domain.model.CredentialDTO;
 // llamar al repository pero tambien crea credentiadto a credential normal
 public class CredentialService {
-    private final CredentialRepository credentialRepository;
+    private final BasicCredentialRepository credentialRepository;
 
     @Inject
-    public CredentialService(CredentialRepository credentialRepository) {
+    public CredentialService(BasicCredentialRepository credentialRepository) {
         this.credentialRepository = credentialRepository;
     }
 
