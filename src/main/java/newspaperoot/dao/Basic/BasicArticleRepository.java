@@ -22,21 +22,27 @@ public class BasicArticleRepository implements ArticleRepository {
 
     @Override
     public ArticleEntity get(int id) {
-        return articles.get(id);
+        return articles.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public int save(ArticleEntity article) {//el id que devuelve para el cliente
-        return articles.get(article.getId()).getId();
+        articles.add(article);
+        return article.getId();
     }
 
     @Override
     public void delete(ArticleEntity article) {
-        articles.remove(article);
+        articles.removeIf(a -> a.getId() == article.getId());
     }
 
     @Override
     public void update(ArticleEntity article) {
-        articles.set(article.getId(), article);
+        for (int i = 0; i < articles.size(); i++) {
+            if (articles.get(i).getId() == article.getId()) {
+                articles.set(i, article);
+            }
+        }
+        articles.add(article);
     }
 }
