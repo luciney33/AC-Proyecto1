@@ -17,7 +17,6 @@ public class mainMenu {
             SeContainer container = initializer.initialize();
             CredentialUI credentialUI = container.select(CredentialUI.class).get();
             ArticleUI articleUI = container.select(ArticleUI.class).get();
-            BasicArticleRepository repo = container.select(BasicArticleRepository.class).get();
 
             Scanner sc = new Scanner(System.in);
             boolean loggedIN = false;
@@ -63,7 +62,7 @@ public class mainMenu {
                 switch (opc) {
                     case 1:
                         System.out.println("Get all articles");
-                        repo.getAll();
+                        articleUI.getArticles();
                         break;
                     case 2:
                         System.out.println("Enter id: ");
@@ -77,19 +76,19 @@ public class mainMenu {
                         System.out.println("Enter rating: ");
                         int rating = Integer.parseInt(sc.nextLine());
                         ArticleEntity newA = new ArticleEntity(id, title, new TypeEntity(typeId, typeName), rating);
-                        repo.save(newA);
+                        articleUI.getArticleService().getArticleRepository().save(newA);
                         break;
                     case 3:
                         System.out.println("Put the id of the article you want to delete: ");
                         int id2 = Integer.parseInt(sc.nextLine());
-                        ArticleEntity article = repo.get(id2);
-                        repo.delete(article);
+                        ArticleEntity article = articleUI.getArticleService().getArticleRepository().get(id2);
+                        articleUI.getArticleService().getArticleRepository().delete(article);
                         break;
                     case 4:
                         System.out.println("Put the id of the article you want to update: ");
                         int id3 = Integer.parseInt(sc.nextLine());
-                        ArticleEntity article2 = repo.get(id3);
-                        repo.update(article2);
+                        ArticleEntity article2 = articleUI.getArticleService().getArticleRepository().get(id3);
+                        articleUI.getArticleService().getArticleRepository().update(article2);
                         break;
                     case 5:
                         break;

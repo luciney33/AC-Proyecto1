@@ -18,4 +18,5 @@ public class ArticleUI {
     public List<ArticleDTO> getArticles() {
         return articleService.getAllArticles();
     }
+
 }

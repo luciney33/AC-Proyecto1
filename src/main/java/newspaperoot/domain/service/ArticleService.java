@@ -3,6 +3,7 @@ package newspaperoot.domain.service;
 import lombok.Data;
 import newspaperoot.dao.Basic.BasicArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
+import newspaperoot.dao.model.TypeEntity;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.TypeDTO;
 
@@ -26,5 +27,12 @@ public class ArticleService {
         return articleDTOs;
         // Create a list of ArticleDTOs from the list of ArticleEntity
         //Return the list of EntityDTOs
+    }
+    public ArticleDTO getArticleById(int id) {
+        ArticleEntity articleEntity = articleRepository.get(id);
+        ArticleDTO articleDTO = new ArticleDTO(articleEntity.getId(),articleEntity.getName(),
+                new TypeEntity(articleEntity.getType().getId(),articleEntity.getType().getDescription()),
+                articleEntity.getNPaperId());
+        return articleDTO;
     }
 }
