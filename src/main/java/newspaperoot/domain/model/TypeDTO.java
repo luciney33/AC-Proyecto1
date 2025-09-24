@@ -5,8 +5,14 @@ import lombok.Data;
 
 //type of article : economia, futbol
 @Data
-@AllArgsConstructor
+
 public class TypeDTO {
     private int id;
     private String name;
+
+    public TypeDTO(int id, String description) {
+        this.id = id;
+        this.name = description;
+    }
 }
+

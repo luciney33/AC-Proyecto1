@@ -35,4 +35,11 @@ public class ArticleService {
                 articleEntity.getNPaperId());
         return articleDTO;
     }
+    public ArticleDTO getSavedArticle(ArticleDTO article) {
+        ArticleEntity articleEntity = new ArticleEntity(article.getId(),article.getName(),
+                new TypeEntity(article.getType().getId(),article.getType().getDescription()),
+                article.getNPaperId());
+        int id = articleRepository.save(articleEntity);
+        return new ArticleDTO(id,article.getName(),article.getType(),article.getNPaperId());
+    }
 }

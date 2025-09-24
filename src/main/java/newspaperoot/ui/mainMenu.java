@@ -76,7 +76,7 @@ public class mainMenu {
                         System.out.println("Enter rating: ");
                         int rating = Integer.parseInt(sc.nextLine());
                         ArticleEntity newA = new ArticleEntity(id, title, new TypeEntity(typeId, typeName), rating);
-                        articleUI.getArticleService().getArticleRepository().save(newA);
+                        articleUI.getSavedArticle(newA);
                         break;
                     case 3:
                         System.out.println("Put the id of the article you want to delete: ");
