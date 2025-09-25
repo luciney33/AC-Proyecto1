@@ -19,17 +19,20 @@ public class ArticleUI {
         return articleService.getAllArticles();
     }
 
-    public ArticleDTO getArticle(int id) {
+    public ArticleDTO getArticleById(int id) {
         return articleService.getArticleById(id);
     }
 
-    public void getSavedArticle(ArticleDTO article) {
-        articleService.saveArticle(article);
-
-
+    public ArticleDTO saveArticle(ArticleDTO articleDTO) {
+        return articleService.saveArticle(articleDTO);
     }
-    public void getDeleteArticle(ArticleEntity articleEntity) {
 
+    public ArticleDTO deleteArticle(ArticleDTO articleDTO) {
+        return articleService.deleteArticle(articleDTO);
+    }
+
+    public ArticleDTO updateArticle(ArticleDTO articleDTO) {
+        return articleService.updateArticle(articleDTO);
     }
 
 }

@@ -5,7 +5,9 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 import newspaperoot.dao.Basic.BasicArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.model.TypeEntity;
+import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.CredentialDTO;
+import newspaperoot.domain.model.TypeDTO;
 
 import java.util.Scanner;
 
@@ -65,6 +67,7 @@ public class mainMenu {
                         articleUI.getArticles();
                         break;
                     case 2:
+                        System.out.println("Add article");
                         System.out.println("Enter id: ");
                         int id = Integer.parseInt(sc.nextLine());
                         System.out.println("Enter title: ");
@@ -75,20 +78,28 @@ public class mainMenu {
                         String typeName = sc.nextLine();
                         System.out.println("Enter rating: ");
                         int rating = Integer.parseInt(sc.nextLine());
-                        ArticleEntity newA = new ArticleEntity(id, title, new TypeEntity(typeId, typeName), rating);
-                        articleUI.getSavedArticle(newA);
+                        ArticleDTO newA = new ArticleDTO(id, title, new TypeEntity(typeId, typeName), rating);
+                        articleUI.saveArticle(newA);
                         break;
                     case 3:
                         System.out.println("Put the id of the article you want to delete: ");
                         int id2 = Integer.parseInt(sc.nextLine());
-                        ArticleEntity article = articleUI.getArticleService().getArticleRepository().get(id2);
-                        articleUI.getArticleService().getArticleRepository().delete(article);
+                        ArticleDTO articleDTO = new ArticleDTO(id2, "", null, 0);
+                        articleUI.deleteArticle(articleDTO);
                         break;
                     case 4:
                         System.out.println("Put the id of the article you want to update: ");
                         int id3 = Integer.parseInt(sc.nextLine());
-                        ArticleEntity article2 = articleUI.getArticleService().getArticleRepository().get(id3);
-                        articleUI.getArticleService().getArticleRepository().update(article2);
+                        System.out.println("Enter new title: ");
+                        String title2 = sc.nextLine();
+                        System.out.println("Enter new type id: ");
+                        int newTypeId = Integer.parseInt(sc.nextLine());
+                        System.out.println("Enter new type name: ");
+                        String newTypeName = sc.nextLine();
+                        System.out.println("Enter new rating: ");
+                        int newRating = Integer.parseInt(sc.nextLine());
+                        ArticleDTO updatedDTO = new ArticleDTO(id3, title2, new TypeDTO(newTypeId, newTypeName), newRating, 0);
+                        articleUI.updateArticle(updatedDTO);
                         break;
                     case 5:
                         break;

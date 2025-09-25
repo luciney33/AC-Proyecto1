@@ -1,6 +1,8 @@
 package newspaperoot.domain.service;
 
+import jakarta.inject.Inject;
 import lombok.Data;
+import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.Basic.BasicArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.model.TypeEntity;
@@ -13,11 +15,22 @@ import java.util.stream.Collectors;
 @Data
 public class ArticleService {
 
-    private final BasicArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
-    public ArticleService(BasicArticleRepository articleRepository) {
+    @Inject
+    public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
+
+    private ArticleEntity dtoToEntity(ArticleDTO dto) {
+        return new ArticleEntity(
+                dto.getId(),
+                dto.getName(),
+                new TypeEntity(dto.getType().getId(), dto.getType().getName()),
+                dto.getNpaperId()
+        );
+    }
+
 
     public List<ArticleDTO> getAllArticles() {
         List<ArticleEntity> articles = articleRepository.getAll();
@@ -30,16 +43,25 @@ public class ArticleService {
     }
     public ArticleDTO getArticleById(int id) {
         ArticleEntity articleEntity = articleRepository.get(id);
-        ArticleDTO articleDTO = new ArticleDTO(articleEntity.getId(),articleEntity.getName(),
-                new TypeEntity(articleEntity.getType().getId(),articleEntity.getType().getDescription()),
-                articleEntity.getNPaperId());
+        return new ArticleDTO(articleEntity.getId(),articleEntity.getName(),new TypeDTO(articleEntity.getType().getId(),articleEntity.getType().getDescription()),
+                articleEntity.getNPaperId(),4);
+    }
+    public ArticleDTO saveArticle(ArticleDTO articleDTO) {
+        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        int id = articleRepository.save(articleEntity);
+        articleDTO.setId(id); // actualizar id si el repo lo asigna
         return articleDTO;
     }
-    public ArticleDTO getSavedArticle(ArticleDTO article) {
-        ArticleEntity articleEntity = new ArticleEntity(article.getId(),article.getName(),
-                new TypeEntity(article.getType().getId(),article.getType().getDescription()),
-                article.getNPaperId());
-        int id = articleRepository.save(articleEntity);
-        return new ArticleDTO(id,article.getName(),article.getType(),article.getNPaperId());
+
+    public ArticleDTO updateArticle(ArticleDTO articleDTO) {
+        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        articleRepository.update(articleEntity);
+        return articleDTO;
+    }
+
+    public ArticleDTO deleteArticle(ArticleDTO articleDTO) {
+        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        articleRepository.delete(articleEntity);
+        return articleDTO;
     }
 }
