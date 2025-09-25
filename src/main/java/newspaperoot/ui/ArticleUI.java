@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 public class ArticleUI {
     private final ArticleService articleService;
+
     public ArticleUI(ArticleService articleService) {
         this.articleService = articleService;
     }

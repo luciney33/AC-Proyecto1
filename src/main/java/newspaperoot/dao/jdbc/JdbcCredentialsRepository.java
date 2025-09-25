@@ -5,7 +5,7 @@ import newspaperoot.dao.model.CredentialEntity;
 
 import java.util.List;
 
-public class jdbcCredentialsRepository implements CredentialRepository {
+public class JdbcCredentialsRepository implements CredentialRepository {
     @Override
     public List<CredentialEntity> getAll() {
         return List.of();

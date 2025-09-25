@@ -4,8 +4,10 @@ import jakarta.inject.Inject;
 import lombok.Data;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.Basic.BasicArticleRepository;
+import newspaperoot.dao.jdbc.JdbcArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.model.TypeEntity;
+import newspaperoot.domain.mappers.MapDtoEntity;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.TypeDTO;
 
@@ -16,24 +18,19 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final MapDtoEntity mapper;
+    private final JdbcArticleRepository jdbcArticleRepository;
 
     @Inject
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, MapDtoEntity mapper, JdbcArticleRepository jdbcArticleRepository) {
         this.articleRepository = articleRepository;
-    }
-
-    private ArticleEntity dtoToEntity(ArticleDTO dto) {
-        return new ArticleEntity(
-                dto.getId(),
-                dto.getName(),
-                new TypeEntity(dto.getType().getId(), dto.getType().getName()),
-                dto.getNpaperId()
-        );
+        this.mapper = mapper;
+        this.jdbcArticleRepository = jdbcArticleRepository;
     }
 
 
     public List<ArticleDTO> getAllArticles() {
-        List<ArticleEntity> articles = articleRepository.getAll();
+        List<ArticleEntity> articles =jdbcArticleRepository.getAll();
         List<ArticleDTO> articleDTOs = articles.stream()
                 .map(article -> new ArticleDTO(article.getId(),article.getName(),
                         new TypeDTO(article.getType().getId(),article.getType().getDescription()),article.getNPaperId(),1)).collect(Collectors.toList());
@@ -47,20 +44,20 @@ public class ArticleService {
                 articleEntity.getNPaperId(),4);
     }
     public ArticleDTO saveArticle(ArticleDTO articleDTO) {
-        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        ArticleEntity articleEntity = mapper.dtoToEntity(articleDTO);
         int id = articleRepository.save(articleEntity);
         articleDTO.setId(id); // actualizar id si el repo lo asigna
         return articleDTO;
     }
 
     public ArticleDTO updateArticle(ArticleDTO articleDTO) {
-        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        ArticleEntity articleEntity = mapper.dtoToEntity(articleDTO);
         articleRepository.update(articleEntity);
         return articleDTO;
     }
 
     public ArticleDTO deleteArticle(ArticleDTO articleDTO) {
-        ArticleEntity articleEntity = dtoToEntity(articleDTO);
+        ArticleEntity articleEntity = mapper.dtoToEntity(articleDTO);
         articleRepository.delete(articleEntity);
         return articleDTO;
     }

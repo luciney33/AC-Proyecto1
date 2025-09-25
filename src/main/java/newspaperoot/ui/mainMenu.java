@@ -2,13 +2,12 @@ package newspaperoot.ui;
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
-import newspaperoot.dao.Basic.BasicArticleRepository;
-import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.model.TypeEntity;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.CredentialDTO;
 import newspaperoot.domain.model.TypeDTO;
 
+import java.sql.*;
 import java.util.Scanner;
 
 public class mainMenu {
