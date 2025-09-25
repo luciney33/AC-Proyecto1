@@ -1,7 +1,6 @@
 package newspaperoot.dao;
 
 import newspaperoot.dao.model.ArticleEntity;
-import newspaperoot.dao.model.CredentialEntity;
 
 import java.util.List;
 

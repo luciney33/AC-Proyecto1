@@ -9,5 +9,4 @@ public class CredentialEntity {
     private String username;
     private String password;
     private int idReader;
-
 }
