@@ -4,13 +4,16 @@ import jakarta.inject.Inject;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.jdbc.mappers.MapResultSetToArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
+import newspaperoot.dao.utilities.Queries;
 
+import javax.swing.text.Utilities;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcArticleRepository implements ArticleRepository {
     private final MapResultSetToArticleEntity mapper;
+
 
 @Inject
     public JdbcArticleRepository(MapResultSetToArticleEntity mapResultSetToArticleEntity) {
@@ -22,7 +25,7 @@ public class JdbcArticleRepository implements ArticleRepository {
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:mysql://dam2.mysql.iesquevedo.es:3335/luciapeñafiel_newspaperDB", "root", "quevedo2dam");
             Statement myStatement = myConnection.createStatement();
-            ResultSet myResultSet = myStatement.executeQuery("SELECT * FROM Article");
+            ResultSet myResultSet = myStatement.executeQuery(Queries.SelectFrom);
             while (myResultSet.next()) {
                 ArticleEntity article = mapper.mapResultSetToArticleEntity(myResultSet);
                 articles.add(article);

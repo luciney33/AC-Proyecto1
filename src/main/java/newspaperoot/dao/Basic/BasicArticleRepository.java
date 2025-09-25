@@ -39,6 +39,5 @@ public class BasicArticleRepository {
                 articles.set(i, article);
             }
         }
-        articles.add(article);
     }
 }

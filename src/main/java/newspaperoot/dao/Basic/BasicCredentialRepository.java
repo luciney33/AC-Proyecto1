@@ -22,10 +22,10 @@ public class BasicCredentialRepository implements CredentialRepository {
     }
 
     public CredentialEntity get(String username) {
+        return getAll().stream().filter(credentialEntity -> credentialEntity.getUsername().equals(username)).findFirst().orElse(null);
         //Connect to the BD
         //Send the query QL ang get the answer
         //Return the answer
-        return new CredentialEntity("root","root",0);
     }
 
     @Override
