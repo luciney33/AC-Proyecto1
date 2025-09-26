@@ -1,6 +1,7 @@
 package newspaperoot.domain.service;
 
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Data;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.Basic.BasicArticleRepository;
@@ -22,7 +23,7 @@ public class ArticleService {
     private final JdbcArticleRepository jdbcArticleRepository;
 
     @Inject
-    public ArticleService(ArticleRepository articleRepository, MapDtoEntity mapper, JdbcArticleRepository jdbcArticleRepository) {
+    public ArticleService(@Named("jdbcRepo") ArticleRepository articleRepository, MapDtoEntity mapper, JdbcArticleRepository jdbcArticleRepository) {
         this.articleRepository = articleRepository;
         this.mapper = mapper;
         this.jdbcArticleRepository = jdbcArticleRepository;
