@@ -12,7 +12,7 @@ import newspaperoot.domain.model.CredentialDTO;
 public class CredentialService {
     private final CredentialRepository credentialRepository;
 
-    //@Inject
+    @Inject
     public CredentialService(CredentialRepository credentialRepository) {
         this.credentialRepository = credentialRepository;
     }

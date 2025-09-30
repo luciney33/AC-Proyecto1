@@ -20,18 +20,16 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final MapDtoEntity mapper;
-    private final JdbcArticleRepository jdbcArticleRepository;
 
     @Inject
-    public ArticleService(@Named("jdbcRepo") ArticleRepository articleRepository, MapDtoEntity mapper, JdbcArticleRepository jdbcArticleRepository) {
+    public ArticleService(ArticleRepository articleRepository,MapDtoEntity mapper ) {
         this.articleRepository = articleRepository;
         this.mapper = mapper;
-        this.jdbcArticleRepository = jdbcArticleRepository;
     }
 
 
     public List<ArticleDTO> getAllArticles() {
-        List<ArticleEntity> articles =jdbcArticleRepository.getAll();
+        List<ArticleEntity> articles = articleRepository.getAll();
         List<ArticleDTO> articleDTOs = articles.stream()
                 .map(article -> new ArticleDTO(article.getId(),article.getName(),
                         new TypeDTO(article.getType().getId(),article.getType().getDescription()),article.getNPaperId(),1)).collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package newspaperoot.ui;
 
+import jakarta.inject.Inject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import newspaperoot.dao.model.ArticleEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 public class ArticleUI {
     private final ArticleService articleService;
-
+    @Inject
     public ArticleUI(ArticleService articleService) {
         this.articleService = articleService;
     }

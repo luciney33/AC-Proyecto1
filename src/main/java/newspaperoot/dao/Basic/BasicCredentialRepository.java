@@ -12,8 +12,7 @@ import java.util.List;
 //si no, muestra un mensaje de error
 //y vuelve a pedir las credenciales
 
-public class BasicCredentialRepository implements CredentialRepository {
-    @Override
+public class BasicCredentialRepository {
     public List<CredentialEntity> getAll() {
         List<CredentialEntity> credentialEntities = new ArrayList<>();
         credentialEntities.add(new CredentialEntity("luci","luci",2));
@@ -28,16 +27,13 @@ public class BasicCredentialRepository implements CredentialRepository {
         //Return the answer
     }
 
-    @Override
     public int save(CredentialEntity credential) {
         return 0;
     }
 
-    @Override
     public void delete(CredentialEntity credential) {
     }
 
-    @Override
     public void update(CredentialEntity credential) {
 
     }

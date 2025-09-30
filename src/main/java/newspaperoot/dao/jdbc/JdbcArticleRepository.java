@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 @Data
-@Named("jdbcRepo")
 public class JdbcArticleRepository implements ArticleRepository {
     private Configuration conf;
     private final MapResultSetToArticleEntity mapper;
@@ -91,7 +90,7 @@ public class JdbcArticleRepository implements ArticleRepository {
              PreparedStatement ps = con.prepareStatement(Queries.Delete)) {
             ps.setInt(1, article.getId());
             if (ps.executeUpdate() == 0) {
-                throw new SQLException("Deleting article failed, no rows affected.");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -107,7 +106,7 @@ public class JdbcArticleRepository implements ArticleRepository {
             ps.setInt(3, article.getType().getId());
             ps.setInt(4, article.getId());
             if (ps.executeUpdate() == 0) {
-                throw new SQLException("Updating article failed, no rows affected.");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -7,7 +7,7 @@ import newspaperoot.dao.model.TypeEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicArticleRepository implements ArticleRepository {
+public class BasicArticleRepository{
     public final List<ArticleEntity> articles = new ArrayList<>(); {
         articles.add(new ArticleEntity(1, "Article 1", new TypeEntity(1,"sports"),2));
         articles.add(new ArticleEntity(2, "Article 2", new TypeEntity(2,"politics"),1));
