@@ -19,4 +19,5 @@ public class ArticleDTO {
         this.type = new TypeDTO(typeEntity.getId(), typeEntity.getDescription());
         this.npaperId = nPaperId;
     }
+
 }

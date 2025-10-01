@@ -64,43 +64,16 @@ public class mainMenu {
 
                 switch (opc) {
                     case 1:
-                        System.out.println("Get all articles");
                         articleUI.getArticles();
                         break;
                     case 2:
-                        System.out.println("Add article");
-                        System.out.println("Enter id: ");
-                        int id = Integer.parseInt(sc.nextLine());
-                        System.out.println("Enter title: ");
-                        String title = sc.nextLine();
-                        System.out.println("Enter type id: ");
-                        int typeId = Integer.parseInt(sc.nextLine());
-                        System.out.println("Enter type name: ");
-                        String typeName = sc.nextLine();
-                        System.out.println("Enter rating: ");
-                        int rating = Integer.parseInt(sc.nextLine());
-                        ArticleDTO newA = new ArticleDTO(id, title, new TypeEntity(typeId, typeName), rating);
-                        articleUI.saveArticle(newA);
+                        articleUI.saveArticle();
                         break;
                     case 3:
-                        System.out.println("Put the id of the article you want to delete: ");
-                        int id2 = Integer.parseInt(sc.nextLine());
-                        ArticleDTO articleDTO = new ArticleDTO(id2, "", null, 0);
-                        articleUI.deleteArticle(articleDTO);
+                        articleUI.deleteArticle();
                         break;
                     case 4:
-                        System.out.println("Put the id of the article you want to update: ");
-                        int id3 = Integer.parseInt(sc.nextLine());
-                        System.out.println("Enter new title: ");
-                        String title2 = sc.nextLine();
-                        System.out.println("Enter new type id: ");
-                        int newTypeId = Integer.parseInt(sc.nextLine());
-                        System.out.println("Enter new type name: ");
-                        String newTypeName = sc.nextLine();
-                        System.out.println("Enter new rating: ");
-                        int newRating = Integer.parseInt(sc.nextLine());
-                        ArticleDTO updatedDTO = new ArticleDTO(id3, title2, new TypeDTO(newTypeId, newTypeName), newRating, 0);
-                        articleUI.updateArticle(updatedDTO);
+                        articleUI.updateArticle();
                         break;
                     case 5:
                         break;
