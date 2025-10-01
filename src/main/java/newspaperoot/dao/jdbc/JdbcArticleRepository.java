@@ -1,19 +1,16 @@
 package newspaperoot.dao.jdbc;
 
-import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import lombok.Data;
 import newspaperoot.common.Configuration;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.jdbc.mappers.MapResultSetToArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.utilities.Queries;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+
 @Data
 public class JdbcArticleRepository implements ArticleRepository {
     private Configuration conf;

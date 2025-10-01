@@ -1,11 +1,23 @@
 package newspaperoot.dao.jdbc;
 
+import jakarta.inject.Inject;
+import lombok.Data;
+import newspaperoot.common.Configuration;
 import newspaperoot.dao.CredentialRepository;
 import newspaperoot.dao.model.CredentialEntity;
 
 import java.util.List;
+@Data
+public class JdbcCredentialsRepository  implements  CredentialRepository {
+    private Configuration conf;
 
-public class JdbcCredentialsRepository implements CredentialRepository {
+
+
+    @Inject
+    public JdbcCredentialsRepository(CredentialRepository credentialRepository) {
+        this.credentialRepository = credentialRepository;
+    }
+
     @Override
     public List<CredentialEntity> getAll() {
         return List.of();

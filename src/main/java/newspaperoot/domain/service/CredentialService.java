@@ -19,6 +19,9 @@ public class CredentialService {
 
     public boolean checkLogin(CredentialDTO credentialDTO) {
         CredentialEntity credentialEntity = credentialRepository.get(credentialDTO.getUsername());
+        if (credentialEntity == null) {
+            throw new IllegalArgumentException("Usuario no encontrado");
+        }
         return credentialEntity.getPassword().equals(credentialDTO.getPassword());
     }
 }

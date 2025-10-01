@@ -12,7 +12,7 @@ import java.util.List;
 //si no, muestra un mensaje de error
 //y vuelve a pedir las credenciales
 
-public class BasicCredentialRepository {
+public class BasicCredentialRepository{
     public List<CredentialEntity> getAll() {
         List<CredentialEntity> credentialEntities = new ArrayList<>();
         credentialEntities.add(new CredentialEntity("luci","luci",2));
@@ -21,7 +21,7 @@ public class BasicCredentialRepository {
     }
 
     public CredentialEntity get(String username) {
-        return getAll().stream().filter(credentialEntity -> credentialEntity.getUsername().equalsIgnoreCase(username)).findFirst().orElse(null);
+        return getAll().stream().filter(c -> c.getUsername().equals(username)).findFirst().orElse(null);
         //Connect to the BD
         //Send the query QL ang get the answer
         //Return the answer
