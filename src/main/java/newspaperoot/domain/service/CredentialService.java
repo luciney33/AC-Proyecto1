@@ -7,6 +7,8 @@ import newspaperoot.dao.Basic.BasicCredentialRepository;
 import newspaperoot.dao.CredentialRepository;
 import newspaperoot.dao.model.CredentialEntity;
 import newspaperoot.domain.model.CredentialDTO;
+import org.jboss.weld.exceptions.IllegalArgumentException;
+
 // llamar al repository pero tambien crea credentiadto a credential normal
 @Data
 public class CredentialService {

@@ -9,19 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapResultSetToArticleEntity {
-    public List<ArticleEntity> mapRS(ResultSet articlesRS) {
-        List<ArticleEntity> articles = new ArrayList<>();
-        try {
-            while (articlesRS.next()) {
-                articles.add(new ArticleEntity(articlesRS.getInt("id"),
-                        articlesRS.getString("name_article"),
-                        new TypeEntity(articlesRS.getInt("type_id"), articlesRS.getString("type_description")),
-                        articlesRS.getInt("id_newspaper")));
-            }
-            return articles;
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+
+    public ArticleEntity mapRS(ResultSet rs) throws SQLException {
+        return new ArticleEntity(
+                rs.getInt("id_article"),
+                rs.getString("name_article"),
+                new TypeEntity(rs.getInt("id_type"), rs.getString("description")),
+                rs.getInt("id_newspaper")
+        );
     }
 
 }

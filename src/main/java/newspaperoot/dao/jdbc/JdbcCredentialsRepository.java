@@ -7,6 +7,8 @@ import newspaperoot.dao.CredentialRepository;
 import newspaperoot.dao.jdbc.mappers.MapResultSetToCredentialEntity;
 import newspaperoot.dao.model.CredentialEntity;
 import newspaperoot.dao.utilities.Queries;
+import newspaperoot.domain.Error.AppError;
+import newspaperoot.domain.Error.DatabaseError;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class JdbcCredentialsRepository  implements  CredentialRepository {
     }
 
     public Connection getConnection() throws SQLException {
-        Connection myConnection = DriverManager.getConnection(conf.getProperty("url"),conf.getProperty("username"),conf.getProperty("password"));
+        Connection myConnection = DriverManager.getConnection(conf.getProperty("urlDB"),conf.getProperty("user_name"),conf.getProperty("password"));
         return myConnection;
     }
 
@@ -42,11 +44,24 @@ public class JdbcCredentialsRepository  implements  CredentialRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return List.of();
+        return credentialE;
     }
 
     @Override
     public CredentialEntity get(String username) {
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(Queries.SelectGetCrede)) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new CredentialEntity(rs.getString("username"), rs.getString("password"), rs.getInt("id_reader"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DatabaseError(e.getMessage());
+        }catch (Exception e) {
+            throw new AppError(e.getMessage());
+        }
         return null;
     }
 

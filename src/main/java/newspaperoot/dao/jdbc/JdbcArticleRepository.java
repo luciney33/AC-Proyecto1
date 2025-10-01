@@ -38,9 +38,11 @@ public class JdbcArticleRepository implements ArticleRepository {
         try (Connection con = getConnection();
              Statement myStatement = con.createStatement()) {
             ResultSet articleRS = myStatement.executeQuery(Queries.SelectFrom);
+            if (!articleRS.isBeforeFirst()) { // no hay filas
+                System.out.println("No hay artículos en la BD");
+            }
             while (articleRS.next()) {
-                List<ArticleEntity> article = mapper.mapRS(articleRS);
-                articles.addAll(article);
+                articles.add(mapper.mapRS(articleRS));
             }
         } catch (SQLException e) {
             throw new DatabaseError(e.getMessage());

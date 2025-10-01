@@ -9,6 +9,7 @@ import newspaperoot.domain.model.CredentialDTO;
 import newspaperoot.domain.model.TypeDTO;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class mainMenu {
