@@ -3,6 +3,7 @@ package newspaperoot.ui;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 import newspaperoot.dao.model.TypeEntity;
+import newspaperoot.domain.Error.AppError;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.CredentialDTO;
 import newspaperoot.domain.model.TypeDTO;
@@ -126,7 +127,7 @@ public class mainMenu {
 
             } while (opc != 13);
 
-        } catch (Exception e) {
+        } catch (AppError e) {
             System.err.println("Error : " + e.getMessage());
             System.exit(1);
         }

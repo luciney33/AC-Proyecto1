@@ -7,6 +7,9 @@ import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.jdbc.mappers.MapResultSetToArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.utilities.Queries;
+import newspaperoot.domain.Error.AppError;
+import newspaperoot.domain.Error.DatabaseError;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,9 @@ public class JdbcArticleRepository implements ArticleRepository {
                 articles.addAll(article);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseError(e.getMessage());
+        }catch (Exception e) {
+            throw new AppError(e.getMessage());
         }
         return articles;
     }
@@ -58,7 +63,9 @@ public class JdbcArticleRepository implements ArticleRepository {
                         articleRS.getInt("id_newspaper"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseError(e.getMessage());
+        } catch (Exception e) {
+            throw new AppError(e.getMessage());
         }
         return null;
     }
@@ -76,7 +83,9 @@ public class JdbcArticleRepository implements ArticleRepository {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseError(e.getMessage());
+        }catch (Exception e) {
+            throw new AppError(e.getMessage());
         }
         return 0;
     }
@@ -90,7 +99,9 @@ public class JdbcArticleRepository implements ArticleRepository {
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseError(e.getMessage());
+        }catch (Exception e) {
+            throw new AppError(e.getMessage());
         }
     }
 
@@ -107,7 +118,8 @@ public class JdbcArticleRepository implements ArticleRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-
+        } catch (Exception e) {
+            throw new AppError(e.getMessage());
         }
     }
 }

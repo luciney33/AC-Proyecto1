@@ -7,5 +7,6 @@ public class Queries {
     public static final String SelectSave = "insert into Article (name_article, id_newspaper, id_type) values (?, ?, ?)";
     public static final String Delete = "delete from Article where id_article = ?";
     public static final String Update = "update Article set ,name_article = ? id_newspaper = ?, id_type = ? where id_article = ?";
+    public static final String SelectFromCrede = "select * from Credentials";
 
 }
