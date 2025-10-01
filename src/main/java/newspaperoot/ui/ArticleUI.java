@@ -12,10 +12,13 @@ import newspaperoot.domain.service.ArticleService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 @Data
 public class ArticleUI {
     private final ArticleService articleService;
 
+    Scanner sc = new Scanner(System.in);
     @Inject
     public ArticleUI(ArticleService articleService) {
         this.articleService = articleService;
@@ -46,7 +49,21 @@ public class ArticleUI {
     }
 
     public ArticleDTO saveArticle(ArticleDTO articleDTO) {
-        return articleService.saveArticle(articleDTO);
+        System.out.println("Add article");
+        System.out.println("Enter id: ");
+        int id = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter title: ");
+        String title = sc.nextLine();
+        System.out.println("Enter type id: ");
+        int typeId = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter type name: ");
+        String typeName = sc.nextLine();
+        System.out.println("Enter rating: ");
+        int rating = Integer.parseInt(sc.nextLine());
+
+        ArticleDTO article = articleService.saveArticle(articleDTO);
+
+        return article;
     }
 
     public ArticleDTO deleteArticle(ArticleDTO articleDTO) {
