@@ -74,6 +74,7 @@ public class mainMenu {
                         break;
                     case 4:
                         articleUI.updateArticle();
+
                         break;
                     case 5:
                         break;
