@@ -127,6 +127,7 @@ public class ArticleUI {
         articleDTO.setType(new TypeDTO(newTypeId,newTypeName));
         articleDTO.setAvgRating(newRating);
         return articleService.updateArticle(articleDTO);
+
     }
 
 }
