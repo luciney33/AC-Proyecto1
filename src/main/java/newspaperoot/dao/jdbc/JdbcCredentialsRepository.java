@@ -4,7 +4,7 @@ import jakarta.inject.Inject;
 import lombok.Data;
 import newspaperoot.common.Configuration;
 import newspaperoot.dao.CredentialRepository;
-import newspaperoot.dao.jdbc.mappers.MapResultSetToCredentialEntity;
+import newspaperoot.dao.jdbc.mappers.MapRStoCredentialEntity;
 import newspaperoot.dao.model.CredentialEntity;
 import newspaperoot.dao.utilities.Queries;
 import newspaperoot.domain.Error.AppError;
@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 public class JdbcCredentialsRepository  implements  CredentialRepository {
-    private Configuration conf;
-    private MapResultSetToCredentialEntity mapper;
+    private final Configuration conf;
+    private final MapRStoCredentialEntity mapper;
 
 
     @Inject
-    public JdbcCredentialsRepository(Configuration conf, MapResultSetToCredentialEntity mapper) {
+    public JdbcCredentialsRepository(Configuration conf, MapRStoCredentialEntity mapper) {
         this.conf = conf;
-        this.mapper = new MapResultSetToCredentialEntity();
+        this.mapper = new MapRStoCredentialEntity();
     }
 
     public Connection getConnection() throws SQLException {
@@ -34,7 +34,7 @@ public class JdbcCredentialsRepository  implements  CredentialRepository {
     public List<CredentialEntity> getAll() {
         List<CredentialEntity> credentialE = new ArrayList<>();
         try (Connection con = getConnection();
-             Statement stmt = con.createStatement();){
+             Statement stmt = con.createStatement()){
             ResultSet rs = stmt.executeQuery(Queries.SelectFromCrede);
             while (rs.next()) {
                 List<CredentialEntity> credential = mapper.mapRS(rs);

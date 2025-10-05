@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 @Data
 @AllArgsConstructor
-public class NewPaperDTO {
+public class NewsPaperDTO {
     private int id;
     private String name;
     private LocalDate date;

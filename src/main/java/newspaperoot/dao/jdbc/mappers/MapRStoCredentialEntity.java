@@ -1,6 +1,5 @@
 package newspaperoot.dao.jdbc.mappers;
 
-import newspaperoot.common.Configuration;
 import newspaperoot.dao.model.CredentialEntity;
 
 import java.sql.ResultSet;
@@ -8,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapResultSetToCredentialEntity {
+public class MapRStoCredentialEntity {
     public List<CredentialEntity> mapRS(ResultSet rs) throws SQLException {
         List<CredentialEntity> credential = new ArrayList<>();
         try {

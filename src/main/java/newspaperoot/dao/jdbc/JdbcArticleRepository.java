@@ -4,7 +4,7 @@ import jakarta.inject.Inject;
 import lombok.Data;
 import newspaperoot.common.Configuration;
 import newspaperoot.dao.ArticleRepository;
-import newspaperoot.dao.jdbc.mappers.MapResultSetToArticleEntity;
+import newspaperoot.dao.jdbc.mappers.MapRStoArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
 import newspaperoot.dao.utilities.Queries;
 import newspaperoot.domain.Error.AppError;
@@ -16,14 +16,14 @@ import java.util.List;
 
 @Data
 public class JdbcArticleRepository implements ArticleRepository {
-    private Configuration conf;
-    private final MapResultSetToArticleEntity mapper;
+    private final Configuration conf;
+    private final MapRStoArticleEntity mapper;
 
 
     @Inject
-    public JdbcArticleRepository(Configuration conf, MapResultSetToArticleEntity mapResultSetToArticleEntity) {
+    public JdbcArticleRepository(Configuration conf, MapRStoArticleEntity mapRStoArticleEntity) {
         this.conf = conf;
-        this.mapper = mapResultSetToArticleEntity;
+        this.mapper = mapRStoArticleEntity;
     }
 
     public Connection getConnection() throws SQLException {
@@ -38,7 +38,7 @@ public class JdbcArticleRepository implements ArticleRepository {
         try (Connection con = getConnection();
              Statement myStatement = con.createStatement()) {
             ResultSet articleRS = myStatement.executeQuery(Queries.SelectFrom);
-            if (!articleRS.isBeforeFirst()) { // no hay filas
+            if (!articleRS.isBeforeFirst()) {
                 System.out.println("No hay artículos en la BD");
             }
             while (articleRS.next()) {

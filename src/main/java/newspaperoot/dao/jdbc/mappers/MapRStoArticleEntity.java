@@ -5,10 +5,8 @@ import newspaperoot.dao.model.TypeEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class MapResultSetToArticleEntity {
+public class MapRStoArticleEntity {
 
     public ArticleEntity mapRS(ResultSet rs) throws SQLException {
         return new ArticleEntity(

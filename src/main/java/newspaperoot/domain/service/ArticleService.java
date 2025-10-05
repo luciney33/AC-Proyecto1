@@ -1,14 +1,10 @@
 package newspaperoot.domain.service;
 
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import lombok.Data;
 import newspaperoot.dao.ArticleRepository;
-import newspaperoot.dao.Basic.BasicArticleRepository;
-import newspaperoot.dao.jdbc.JdbcArticleRepository;
 import newspaperoot.dao.model.ArticleEntity;
-import newspaperoot.dao.model.TypeEntity;
-import newspaperoot.domain.mappers.MapDtoEntity;
+import newspaperoot.domain.mappers.MapArticleDtoEntity;
 import newspaperoot.domain.model.ArticleDTO;
 import newspaperoot.domain.model.TypeDTO;
 
@@ -19,10 +15,10 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final MapDtoEntity mapper;
+    private final MapArticleDtoEntity mapper;
 
     @Inject
-    public ArticleService(ArticleRepository articleRepository,MapDtoEntity mapper ) {
+    public ArticleService(ArticleRepository articleRepository, MapArticleDtoEntity mapper ) {
         this.articleRepository = articleRepository;
         this.mapper = mapper;
     }
