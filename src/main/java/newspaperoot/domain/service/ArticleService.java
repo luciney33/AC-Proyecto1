@@ -45,9 +45,10 @@ public class ArticleService {
         return articleDTO;
     }
 
-    public ArticleDTO updateArticle(ArticleDTO articleDTO) {
+    public ArticleDTO updateArticle(ArticleDTO articleDTO, int nuevoId) {
         ArticleEntity articleEntity = mapper.dtoToEntity(articleDTO);
-        articleRepository.update(articleEntity);
+        articleRepository.update(articleEntity, nuevoId);
+        articleDTO.setId(nuevoId);
         return articleDTO;
     }
 

@@ -71,10 +71,10 @@ public class mainMenu {
                         articleUI.saveArticle();
                         break;
                     case 3:
-                        articleUI.deleteArticle();
+                        articleUI.updateArticle();
                         break;
                     case 4:
-                        articleUI.updateArticle();
+                        articleUI.deleteArticle();
                         break;
                     case 5:
                         newspaperUIUI.getNewspapers();

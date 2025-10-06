@@ -115,18 +115,9 @@ public class ArticleUI {
             articleDTO = lista.stream().filter(article -> article.getId() == finalId).findFirst().orElse(null);
         }while (!exists);
 
-        System.out.println("Enter new name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter new type id: ");
-        int newTypeId = Integer.parseInt(sc.nextLine());
-        System.out.println("Enter new type name: ");
-        String newTypeName = sc.nextLine();
-        System.out.println("Enter new rating: ");
-        double newRating = Double.parseDouble(sc.nextLine());
-        articleDTO.setName(name);
-        articleDTO.setType(new TypeDTO(newTypeId,newTypeName));
-        articleDTO.setAvgRating(newRating);
-        return articleService.updateArticle(articleDTO);
+        System.out.println("Enter new id: ");
+        int nuevoId = Integer.parseInt(sc.nextLine());
+        return articleService.updateArticle(articleDTO, nuevoId);
 
     }
 

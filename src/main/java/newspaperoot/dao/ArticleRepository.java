@@ -9,5 +9,5 @@ public interface ArticleRepository {
     ArticleEntity get(int id);
     int save(ArticleEntity article);
     void delete(ArticleEntity article);
-    void update(ArticleEntity article);
+    void update(ArticleEntity article, int nuevoId);
 }

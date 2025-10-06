@@ -7,7 +7,7 @@ public class Queries {
             "from Article a join Type t on a.id_type = t.id_type where a.id_article = ?";
     public static final String SelectSave = "insert into Article (name_article, id_newspaper, id_type) values (?, ?, ?)";
     public static final String Delete = "delete from Article where id_article = ?";
-    public static final String Update = "update Article set ,name_article = ? id_newspaper = ?, id_type = ? where id_article = ?";
+    public static final String Update = "update Article set id_article = ? where id_article = ?";
     public static final String SelectFromCrede = "select * from Credentials";
     public static final String SelectGetCrede = "select username, password, id_reader from Credentials where username = ?";
 
