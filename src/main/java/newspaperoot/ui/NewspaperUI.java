@@ -29,7 +29,7 @@ public class NewspaperUI {
             } else {
                 for (int i = 0; i < lista.size(); i++) {
                     NewsPaperDTO news = lista.get(i);
-                    System.out.println("--ID: " + lista.get(i).getId() + " --Name: " + news.getName() + " --Date: " + news.getDate());
+                    System.out.println("--ID: " + lista.get(i).getId() + " --Name: " + news.getName());
                 }
             }
         } catch (DatabaseError e) {

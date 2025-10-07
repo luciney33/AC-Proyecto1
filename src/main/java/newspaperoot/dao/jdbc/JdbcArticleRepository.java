@@ -3,6 +3,7 @@ package newspaperoot.dao.jdbc;
 import jakarta.inject.Inject;
 import lombok.Data;
 import newspaperoot.common.Configuration;
+import newspaperoot.common.DBconnection;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.jdbc.mappers.MapRStoArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
@@ -16,26 +17,20 @@ import java.util.List;
 
 @Data
 public class JdbcArticleRepository implements ArticleRepository {
-    private final Configuration conf;
+    private final DBconnection db;
     private final MapRStoArticleEntity mapper;
 
 
     @Inject
-    public JdbcArticleRepository(Configuration conf, MapRStoArticleEntity mapRStoArticleEntity) {
-        this.conf = conf;
+    public JdbcArticleRepository(DBconnection db, MapRStoArticleEntity mapRStoArticleEntity) {
+        this.db = db;
         this.mapper = mapRStoArticleEntity;
-    }
-
-    public Connection getConnection() throws SQLException {
-        Connection myConnection = DriverManager.getConnection(conf.getProperty("urlDB"), conf.getProperty("user_name"),
-                conf.getProperty("password"));
-        return myConnection;
     }
 
     @Override
     public List<ArticleEntity> getAll() {
         List<ArticleEntity> articles = new ArrayList<>();
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              Statement myStatement = con.createStatement()) {
             ResultSet articleRS = myStatement.executeQuery(Queries.SelectFrom);
             if (!articleRS.isBeforeFirst()) {
@@ -54,7 +49,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public ArticleEntity get(int id) {
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectGet)) {
             ps.setInt(1, id);
             ResultSet articleRS = ps.executeQuery();
@@ -74,7 +69,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public int save(ArticleEntity article) {
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectSave, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(2, article.getName());
             ps.setInt(3, article.getNPaperId());
@@ -94,7 +89,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public void delete(ArticleEntity article) {
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.Delete)) {
             ps.setInt(1, article.getId());
             if (ps.executeUpdate() == 0) {
@@ -109,7 +104,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public void update(ArticleEntity article, int nuevoId) {
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.Update)) {
             ps.setInt(1, nuevoId);
             ps.setInt(2, article.getId());

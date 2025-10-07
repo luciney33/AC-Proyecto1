@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MapNewsDtoEntity {
     public NewsPaperDTO entityToDto(NewspaperEntity entity) {
-        return new NewsPaperDTO(entity.getId(), entity.getName(), entity.getDate());
+        return new NewsPaperDTO(entity.getId(), entity.getName());
     }
     public List<NewsPaperDTO> entityListToDtoList(List<NewspaperEntity> entities) {
         List<NewsPaperDTO> dtos = new ArrayList<>();

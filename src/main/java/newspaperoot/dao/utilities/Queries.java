@@ -12,5 +12,7 @@ public class Queries {
     public static final String SelectGetCrede = "select username, password, id_reader from Credentials where username = ?";
 
     public static final String SelectFromNews = "select * from Newspaper";
+    public static final String SelectFromReader = "select * from Reader";
+
 
 }

@@ -3,6 +3,7 @@ package newspaperoot.dao.jdbc;
 import jakarta.inject.Inject;
 import lombok.Data;
 import newspaperoot.common.Configuration;
+import newspaperoot.common.DBconnection;
 import newspaperoot.dao.CredentialRepository;
 import newspaperoot.dao.jdbc.mappers.MapRStoCredentialEntity;
 import newspaperoot.dao.model.CredentialEntity;
@@ -15,25 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 public class JdbcCredentialsRepository  implements  CredentialRepository {
-    private final Configuration conf;
+    private final DBconnection db;
     private final MapRStoCredentialEntity mapper;
 
 
     @Inject
-    public JdbcCredentialsRepository(Configuration conf, MapRStoCredentialEntity mapper) {
-        this.conf = conf;
+    public JdbcCredentialsRepository(DBconnection db, MapRStoCredentialEntity mapper) {
+        this.db = db;
         this.mapper = new MapRStoCredentialEntity();
-    }
-
-    public Connection getConnection() throws SQLException {
-        Connection myConnection = DriverManager.getConnection(conf.getProperty("urlDB"),conf.getProperty("user_name"),conf.getProperty("password"));
-        return myConnection;
     }
 
     @Override
     public List<CredentialEntity> getAll() {
         List<CredentialEntity> credentialE = new ArrayList<>();
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              Statement stmt = con.createStatement()){
             ResultSet rs = stmt.executeQuery(Queries.SelectFromCrede);
             while (rs.next()) {
@@ -49,7 +45,7 @@ public class JdbcCredentialsRepository  implements  CredentialRepository {
 
     @Override
     public CredentialEntity get(String username) {
-        try (Connection con = getConnection();
+        try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectGetCrede)) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -63,20 +59,5 @@ public class JdbcCredentialsRepository  implements  CredentialRepository {
             throw new AppError(e.getMessage());
         }
         return null;
-    }
-
-    @Override
-    public int save(CredentialEntity credential) {
-        return 0;
-    }
-
-    @Override
-    public void delete(CredentialEntity credential) {
-
-    }
-
-    @Override
-    public void update(CredentialEntity credential) {
-
     }
 }
