@@ -103,10 +103,10 @@ public class JdbcArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public void update(ArticleEntity article, int nuevoId) {
+    public void update(ArticleEntity article, String newName) {
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.Update)) {
-            ps.setInt(1, nuevoId);
+            ps.setString(1, newName);
             ps.setInt(2, article.getId());
             if (ps.executeUpdate() == 0) {
                 throw new SQLException();
