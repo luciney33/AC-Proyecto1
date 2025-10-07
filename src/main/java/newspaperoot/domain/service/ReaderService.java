@@ -2,13 +2,9 @@ package newspaperoot.domain.service;
 
 import jakarta.inject.Inject;
 import lombok.Data;
-import newspaperoot.dao.NewspaperRepository;
 import newspaperoot.dao.ReaderRepository;
-import newspaperoot.dao.model.NewspaperEntity;
 import newspaperoot.dao.model.ReaderEntity;
-import newspaperoot.domain.mappers.MapNewsDtoEntity;
 import newspaperoot.domain.mappers.MapReaderDtoEntity;
-import newspaperoot.domain.model.NewsPaperDTO;
 import newspaperoot.domain.model.ReaderDTO;
 
 import java.util.List;

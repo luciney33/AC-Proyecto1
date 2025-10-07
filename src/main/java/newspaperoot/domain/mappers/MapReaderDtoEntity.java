@@ -1,6 +1,5 @@
 package newspaperoot.domain.mappers;
 import newspaperoot.dao.model.ReaderEntity;
-import newspaperoot.domain.model.NewsPaperDTO;
 import newspaperoot.domain.model.ReaderDTO;
 
 import java.util.ArrayList;

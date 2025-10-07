@@ -13,6 +13,9 @@ public class Queries {
 
     public static final String SelectFromNews = "select * from Newspaper";
     public static final String SelectFromReader = "select * from Reader";
+    public static final String SelectReaderACT = "select ra.id_reader, r.name, r.birth_date, s.id_newspaper from ReadActivity ra join Reader r on ra.id_reader = r.id_reader"+
+            "join Subscription s on r.id_reader = s.id_reader where ra.id_article = ? group by ra.id_reader, r.name, r.birth_date";
+
 
 
 }
