@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 public class ReaderDTO {
-    private int idReader;
-    private String nameReader;
+    private int id;
+    private String name;
     private LocalDate birthday;
 }

@@ -20,7 +20,9 @@ public class mainMenu {
             SeContainer container = initializer.initialize();
             CredentialUI credentialUI = container.select(CredentialUI.class).get();
             ArticleUI articleUI = container.select(ArticleUI.class).get();
-            NewspaperUI newspaperUIUI = container.select(NewspaperUI.class).get();
+            NewspaperUI newspaperUI = container.select(NewspaperUI.class).get();
+            ReaderUI readerUI = container.select(ReaderUI.class).get();
+
 
             Scanner sc = new Scanner(System.in);
             boolean loggedIN = false;
@@ -77,9 +79,10 @@ public class mainMenu {
                         articleUI.deleteArticle();
                         break;
                     case 5:
-                        newspaperUIUI.getNewspapers();
+                        newspaperUI.getNewspapers();
                         break;
                     case 6:
+                        readerUI.getReaders();
                         break;
                     case 7:
                         break;

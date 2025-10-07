@@ -33,7 +33,7 @@ public class NewspaperUI {
                 }
             }
         } catch (DatabaseError e) {
-            System.err.println("Database error during get all newspapers.");
+            System.err.println("Database error during get all newspapers");
         }
         return lista;
     }

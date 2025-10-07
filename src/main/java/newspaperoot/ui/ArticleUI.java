@@ -69,7 +69,7 @@ public class ArticleUI {
     public ArticleDTO deleteArticle() {
         List<ArticleDTO> lista = articleService.getAllArticles();
         if (lista.isEmpty()) {
-            System.out.println("No articles to delete.");
+            System.out.println("No articles to delete");
             return null;
         }
         int id=-1;
@@ -79,12 +79,12 @@ public class ArticleUI {
             try {
                 id = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid article ID.");
+                System.out.println("Invalid input. Please enter a valid article ID");
             }
             int finalId = id;
             exists = lista.stream().anyMatch(article -> article.getId() == finalId);
             if (!exists) {
-                System.out.println("Article with ID " + id + " does not exist. Please try again.");
+                System.out.println("Article with ID " + id + " does not exist. Please try again");
             }
         }while (!exists);
         ArticleDTO articleDTO = new ArticleDTO(id, "", null, 0);
@@ -95,7 +95,7 @@ public class ArticleUI {
         List<ArticleDTO> lista = articleService.getAllArticles();
         ArticleDTO articleDTO;
         if (lista.isEmpty()) {
-            System.out.println("No articles to update.");
+            System.out.println("No articles to update");
             return null;
         }
         int id=-1;
@@ -105,12 +105,12 @@ public class ArticleUI {
             try {
                 id = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid article ID.");
+                System.out.println("Invalid input. Please enter a valid article ID");
             }
             int finalId = id;
             exists = lista.stream().anyMatch(article -> article.getId() == finalId);
             if (!exists) {
-                System.out.println("Article with ID " + id + " does not exist. Please try again.");
+                System.out.println("Article with ID " + id + " does not exist. Please try again");
             }
             articleDTO = lista.stream().filter(article -> article.getId() == finalId).findFirst().orElse(null);
         }while (!exists);
