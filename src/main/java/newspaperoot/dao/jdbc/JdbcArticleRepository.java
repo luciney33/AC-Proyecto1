@@ -50,7 +50,6 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public ArticleEntity get(int id) {
-        List<ArticleEntity> articles = new ArrayList<>();
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectGet)) {
             ps.setInt(1, id);

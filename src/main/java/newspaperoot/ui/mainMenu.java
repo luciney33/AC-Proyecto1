@@ -93,6 +93,7 @@ public class mainMenu {
                         readActUI.getReaderOfArticle();
                         break;
                     case 8:
+                        readerUI.getReaderById();
                         break;
                     case 9:
                         break;
@@ -103,6 +104,10 @@ public class mainMenu {
                     case 12:
                         typeUI.getAllTypes();
                         break;
+                    case 13:
+                        break;
+                    case 14:
+                        break;
                     case 15:
                         System.out.println("Exiting...");
                         break;
@@ -111,7 +116,7 @@ public class mainMenu {
                         break;
                 }
 
-            } while (opc != 13);
+            } while (opc != 15);
 
         } catch (AppError e) {
             System.err.println("Error : " + e.getMessage());

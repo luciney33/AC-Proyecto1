@@ -7,10 +7,13 @@ import newspaperoot.dao.ReaderActivityRepository;
 import newspaperoot.dao.jdbc.mappers.MapRStoReadActEntity;
 import newspaperoot.dao.model.ReadActivityEntity;
 import newspaperoot.dao.utilities.Queries;
+import newspaperoot.domain.Error.AppError;
+import newspaperoot.domain.Error.DatabaseError;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 @Data
@@ -39,5 +42,19 @@ public class JdbcReadActRepository implements ReaderActivityRepository {
 
         }
         return readers;
+    }
+
+    @Override
+    public int addRating(int rating) {
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(Queries.SelectReaderACT)) {
+            ps.setInt(1, rating);
+
+        }catch (SQLException e) {
+            throw new DatabaseError(e.getMessage());
+        }catch (Exception e) {
+            throw new AppError(e.getMessage());
+        }
+        return 0;
     }
 }

@@ -64,36 +64,36 @@ public class ArticleUI {
         System.out.println("Choose newspaper for the article");
         List<NewsPaperDTO> newspapers = newspaperUI.getNewspapers();
         int newspaperId;
-        NewsPaperDTO selectedNews = null;
+        NewsPaperDTO selNews;
         do {
             System.out.print("Enter newpaper id: ");
             newspaperId = Integer.parseInt(sc.nextLine());
             int finalId = newspaperId;
-            selectedNews = newspapers.stream()
+            selNews = newspapers.stream()
                     .filter(t -> t.getId() == finalId)
                     .findFirst()
                     .orElse(null);
-            if (selectedNews == null) {
+            if (selNews == null) {
                 System.out.println("Invalid type id. Try again");
             }
-        } while (selectedNews == null);
+        } while (selNews == null);
 
         System.out.println("Choose type for the article");
         List<TypeDTO> types = typeUI.getAllTypes();
         int typeId;
-        TypeDTO selectedType = null;
+        TypeDTO selType;
         do {
             System.out.print("Enter type id: ");
             typeId = Integer.parseInt(sc.nextLine());
             int finalId = typeId;
-            selectedType = types.stream()
+            selType = types.stream()
                     .filter(t -> t.getId() == finalId)
                     .findFirst()
                     .orElse(null);
-            if (selectedType == null) {
+            if (selType == null) {
                 System.out.println("Invalid type id. Try again");
             }
-        } while (selectedType == null);
+        } while (selType == null);
 
         ArticleDTO newA = new ArticleDTO(0,name, newspaperId, new TypeDTO(typeId,null,null));
         return articleService.saveArticle(newA);

@@ -24,4 +24,9 @@ public class ReaderService {
         return mapper.entityListToDtoList(readerEntities);
 
     }
+
+    public ReaderDTO getReaderById(int id) {
+        ReaderEntity reader = readerRepository.getReaderById(id);
+        return mapper.entityToDto(reader);
+    }
 }
