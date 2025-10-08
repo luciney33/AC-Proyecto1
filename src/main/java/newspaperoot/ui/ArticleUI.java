@@ -8,8 +8,10 @@ import newspaperoot.dao.model.TypeEntity;
 import newspaperoot.domain.Error.AppError;
 import newspaperoot.domain.Error.DatabaseError;
 import newspaperoot.domain.model.ArticleDTO;
+import newspaperoot.domain.model.NewsPaperDTO;
 import newspaperoot.domain.model.TypeDTO;
 import newspaperoot.domain.service.ArticleService;
+import newspaperoot.domain.service.TypeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,13 @@ import java.util.Scanner;
 public class ArticleUI {
     Scanner sc = new Scanner(System.in);
     private final ArticleService articleService;
+    private final TypeUI typeUI;
+    private final NewspaperUI newspaperUI;
 
     @Inject
-    public ArticleUI(ArticleService articleService) {
+    public ArticleUI(ArticleService articleService, TypeUI typeUI, NewspaperUI newspaperUI) {
+        this.newspaperUI = newspaperUI;
+        this.typeUI = typeUI;
         this.articleService = articleService;
     }
 
@@ -37,7 +43,7 @@ public class ArticleUI {
                     ArticleDTO art = lista.get(i);
                     String typeDesc = (art.getType() != null) ? art.getType().getName() : "No Type";
                     System.out.println(" ID: " + lista.get(i).getId()+ " --Name: " + art.getName() + " --Type: " + typeDesc +
-                            " --Newspaper ID: " + art.getNpaperId());
+                            " --Newspaper ID: " + art.getNPaperId());
                 }
             }
         }catch (DatabaseError e) {
@@ -52,17 +58,44 @@ public class ArticleUI {
 
     public ArticleDTO saveArticle() {
         System.out.println("Add article");
-        System.out.println("Enter id: ");
-        int id = Integer.parseInt(sc.nextLine());
-        System.out.println("Enter title: ");
-        String title = sc.nextLine();
-        System.out.println("Enter type id: ");
-        int typeId = Integer.parseInt(sc.nextLine());
-        System.out.println("Enter type name: ");
-        String typeName = sc.nextLine();
-        System.out.println("Enter rating: ");
-        int rating = Integer.parseInt(sc.nextLine());
-        ArticleDTO newA = new ArticleDTO(id, title, new TypeEntity(typeId, typeName), rating);
+        System.out.println("Enter name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Choose newspaper for the article");
+        List<NewsPaperDTO> newspapers = newspaperUI.getNewspapers();
+        int newspaperId;
+        NewsPaperDTO selectedNews = null;
+        do {
+            System.out.print("Enter newpaper id: ");
+            newspaperId = Integer.parseInt(sc.nextLine());
+            int finalId = newspaperId;
+            selectedNews = newspapers.stream()
+                    .filter(t -> t.getId() == finalId)
+                    .findFirst()
+                    .orElse(null);
+            if (selectedNews == null) {
+                System.out.println("Invalid type id. Try again");
+            }
+        } while (selectedNews == null);
+
+        System.out.println("Choose type for the article");
+        List<TypeDTO> types = typeUI.getAllTypes();
+        int typeId;
+        TypeDTO selectedType = null;
+        do {
+            System.out.print("Enter type id: ");
+            typeId = Integer.parseInt(sc.nextLine());
+            int finalId = typeId;
+            selectedType = types.stream()
+                    .filter(t -> t.getId() == finalId)
+                    .findFirst()
+                    .orElse(null);
+            if (selectedType == null) {
+                System.out.println("Invalid type id. Try again");
+            }
+        } while (selectedType == null);
+
+        ArticleDTO newA = new ArticleDTO(0,name, newspaperId, new TypeDTO(typeId,null,null));
         return articleService.saveArticle(newA);
     }
 
@@ -87,7 +120,7 @@ public class ArticleUI {
                 System.out.println("Article with ID " + id + " does not exist. Please try again");
             }
         }while (!exists);
-        ArticleDTO articleDTO = new ArticleDTO(id, "", null, 0);
+        ArticleDTO articleDTO = new ArticleDTO(id, "", 0, null);
         return articleService.deleteArticle(articleDTO);
     }
 
@@ -115,9 +148,9 @@ public class ArticleUI {
             articleDTO = lista.stream().filter(article -> article.getId() == finalId).findFirst().orElse(null);
         }while (!exists);
 
-        System.out.println("Enter new id: ");
-        int nuevoId = Integer.parseInt(sc.nextLine());
-        return articleService.updateArticle(articleDTO, nuevoId);
+        System.out.println("Enter new name: ");
+        String newName = sc.nextLine();
+        return articleService.updateArticle(articleDTO, newName);
 
     }
 

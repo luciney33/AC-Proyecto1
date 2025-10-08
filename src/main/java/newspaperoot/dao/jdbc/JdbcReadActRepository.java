@@ -32,7 +32,7 @@ public class JdbcReadActRepository implements ReaderActivityRepository {
             ps.setInt(1, idArticle);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                readers.add(mapper.mapRS(rs, idArticle));
+                readers.add(mapper.mapRS(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();

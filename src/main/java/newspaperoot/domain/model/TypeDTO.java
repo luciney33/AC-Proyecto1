@@ -9,10 +9,11 @@ import lombok.Data;
 public class TypeDTO {
     private int id;
     private String name;
-
-    public TypeDTO(int id, String description) {
+    private String description;
+    public TypeDTO(int id, String name, String description) {
         this.id = id;
-        this.name = description;
+        this.name = name;
+        this.description = description;
     }
 }
 

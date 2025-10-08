@@ -22,6 +22,9 @@ public class mainMenu {
             ArticleUI articleUI = container.select(ArticleUI.class).get();
             NewspaperUI newspaperUI = container.select(NewspaperUI.class).get();
             ReaderUI readerUI = container.select(ReaderUI.class).get();
+            ReadActivityUI readActUI = container.select(ReadActivityUI.class).get();
+            TypeUI typeUI = container.select(TypeUI.class).get();
+
 
 
             Scanner sc = new Scanner(System.in);
@@ -87,6 +90,7 @@ public class mainMenu {
                         readerUI.getReaders();
                         break;
                     case 7:
+                        readActUI.getReaderOfArticle();
                         break;
                     case 8:
                         break;
@@ -97,8 +101,9 @@ public class mainMenu {
                     case 11:
                         break;
                     case 12:
+                        typeUI.getAllTypes();
                         break;
-                    case 13:
+                    case 15:
                         System.out.println("Exiting...");
                         break;
                     default:

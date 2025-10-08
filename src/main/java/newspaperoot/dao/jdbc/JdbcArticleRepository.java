@@ -7,6 +7,7 @@ import newspaperoot.common.DBconnection;
 import newspaperoot.dao.ArticleRepository;
 import newspaperoot.dao.jdbc.mappers.MapRStoArticleEntity;
 import newspaperoot.dao.model.ArticleEntity;
+import newspaperoot.dao.utilities.Constantes;
 import newspaperoot.dao.utilities.Queries;
 import newspaperoot.domain.Error.AppError;
 import newspaperoot.domain.Error.DatabaseError;
@@ -49,16 +50,15 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public ArticleEntity get(int id) {
+        List<ArticleEntity> articles = new ArrayList<>();
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectGet)) {
             ps.setInt(1, id);
             ResultSet articleRS = ps.executeQuery();
             if (articleRS.next()) {
-                return new ArticleEntity(articleRS.getInt("id"),
-                        articleRS.getString("name_article"),
-                        new newspaperoot.dao.model.TypeEntity(articleRS.getInt("type_id"), articleRS.getString("type_description")),
-                        articleRS.getInt("id_newspaper"));
+                return mapper.mapRS(articleRS);
             }
+
         } catch (SQLException e) {
             throw new DatabaseError(e.getMessage());
         } catch (Exception e) {
@@ -69,48 +69,57 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public int save(ArticleEntity article) {
+        int rowsAffected=0;
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.SelectSave, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(2, article.getName());
-            ps.setInt(3, article.getNPaperId());
-            ps.setInt(4, article.getType().getId());
-            ps.executeUpdate();
+            ps.setString(1, article.getName());
+            ps.setInt(2, article.getNPaperId());
+            ps.setInt(3, article.getType().getId());
+            rowsAffected= ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
+            if(rs.next()) {
+                int auto_id = rs.getInt(1);
+                article.setId(auto_id);
+                System.out.println("The id of the new row is "+auto_id);
             }
         } catch (SQLException e) {
             throw new DatabaseError(e.getMessage());
         }catch (Exception e) {
             throw new AppError(e.getMessage());
         }
-        return 0;
+        return rowsAffected;
     }
 
     @Override
-    public void delete(ArticleEntity article) {
+    public int delete(ArticleEntity article) {
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.Delete)) {
             ps.setInt(1, article.getId());
-            if (ps.executeUpdate() == 0) {
-                throw new SQLException();
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 0) { // No se ha borrado nada
+                throw new DatabaseError(Constantes.DB_ERROR2 + article.getId());
             }
+
+            return rowsAffected;
         } catch (SQLException e) {
-            throw new DatabaseError(e.getMessage());
+            throw new DatabaseError(Constantes.DB_ERROR);
         }catch (Exception e) {
             throw new AppError(e.getMessage());
         }
     }
 
     @Override
-    public void update(ArticleEntity article, String newName) {
+    public int update(ArticleEntity article, String newName) {
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(Queries.Update)) {
             ps.setString(1, newName);
             ps.setInt(2, article.getId());
-            if (ps.executeUpdate() == 0) {
-                throw new SQLException();
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 0) { // No se ha borrado nada
+                throw new DatabaseError(Constantes.DB_ERROR2 + article.getId());
             }
+
+            return rowsAffected;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
