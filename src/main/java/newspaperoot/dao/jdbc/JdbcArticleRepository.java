@@ -114,7 +114,7 @@ public class JdbcArticleRepository implements ArticleRepository {
             ps.setString(1, newName);
             ps.setInt(2, article.getId());
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected == 0) { // No se ha borrado nada
+            if (rowsAffected == 0) { // No se ha actualizao nada
                 throw new DatabaseError(Constantes.DB_ERROR2 + article.getId());
             }
 

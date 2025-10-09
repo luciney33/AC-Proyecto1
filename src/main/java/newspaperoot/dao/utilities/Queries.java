@@ -19,7 +19,7 @@ public class Queries {
 
     public static final String SelectReaderACT = "select ra.id_reader, ra.id_article, r.name, r.birth_date, s.id_newspaper, ra.rating from ReadActivity ra join Reader r on ra.id_reader = r.id_reader"+
             " join Subscription s on r.id_reader = s.id_reader where ra.id_article = ? group by ra.id_reader, ra.id_article, r.name, r.birth_date, ra.rating, s.id_newspaper";
-
+    public static final String SelectAddRating = "update ReadActivity set rating = ? where id_reader = ? and id_article = ?";
     public static final String SelectFromType = "select * from Type";
 
 }

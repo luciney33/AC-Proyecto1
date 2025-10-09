@@ -6,6 +6,7 @@ import newspaperoot.common.DBconnection;
 import newspaperoot.dao.ReaderActivityRepository;
 import newspaperoot.dao.jdbc.mappers.MapRStoReadActEntity;
 import newspaperoot.dao.model.ReadActivityEntity;
+import newspaperoot.dao.utilities.Constantes;
 import newspaperoot.dao.utilities.Queries;
 import newspaperoot.domain.Error.AppError;
 import newspaperoot.domain.Error.DatabaseError;
@@ -45,10 +46,16 @@ public class JdbcReadActRepository implements ReaderActivityRepository {
     }
 
     @Override
-    public int addRating(int rating) {
+    public int addRating(ReadActivityEntity readActivityEntity) {
         try (Connection con = db.getConnection();
-             PreparedStatement ps = con.prepareStatement(Queries.SelectReaderACT)) {
-            ps.setInt(1, rating);
+             PreparedStatement ps = con.prepareStatement(Queries.SelectAddRating)) {
+            ps.setInt(1,readActivityEntity.getRating());
+            ps.setInt(2,readActivityEntity.getId());
+            ps.setInt(3,readActivityEntity.getIdArticle());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 0) { // No se ha actualizao nada
+                throw new DatabaseError(Constantes.DB_ERROR2 + readActivityEntity.getId());
+            }
 
         }catch (SQLException e) {
             throw new DatabaseError(e.getMessage());
@@ -57,4 +64,5 @@ public class JdbcReadActRepository implements ReaderActivityRepository {
         }
         return 0;
     }
+
 }

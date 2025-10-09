@@ -22,4 +22,9 @@ public class ReadActivityService {
         List<ReadActivityEntity> entities = rActRepository.getReadersArticle(idArticle);
         return mapper.entityListToDtoList(entities);
     }
+
+    public ReadActivityDTO addRatingOfArticle(int rating) {
+        ReadActivityDTO rActDTO = rActRepository.addRating(rating)
+        return
+    }
 }

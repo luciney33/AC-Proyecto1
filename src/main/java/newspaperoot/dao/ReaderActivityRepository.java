@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ReaderActivityRepository {
     List<ReadActivityEntity> getReadersArticle(int idArticle);
-    int addRating(ReadActivityEntity rating);
+    int addRating(ReadActivityEntity readActivityEntity);
 }
